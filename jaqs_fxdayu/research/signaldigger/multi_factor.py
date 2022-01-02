@@ -396,7 +396,7 @@ def ic_weight(ic_df,
             continue
         weight = ic_dt.mean(axis=0)
         weight = np.array(weight.values.reshape(len(weight), ))
-        weight_df.ix[dt] = weight / np.sum(np.abs(weight))
+        weight_df.loc[dt] = weight / np.sum(np.abs(weight))
 
     return weight_df.shift(holding_period)
 

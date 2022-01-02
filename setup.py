@@ -22,7 +22,7 @@ def version():
         return f.read().decode('ascii').strip()
 
 
-requirements = [str(ir.req) for ir in parse_requirements("requirements.txt", session=False)]
+requirements = [str(ir.requirement) for ir in parse_requirements("requirements.txt", session=False)]
 setup(
     name='jaqs_fxdayu',
     version=version(),
