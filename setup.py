@@ -1,7 +1,7 @@
 import codecs
 
 try:
-    from pip._internal.req import parse_requirements # for pip >= 10
+    from pip._internal.req import parse_requirements  # for pip >= 10
 except ImportError:
     from pip.req import parse_requirements
 
@@ -22,7 +22,11 @@ def version():
         return f.read().decode('ascii').strip()
 
 
-requirements = [str(ir.requirement) for ir in parse_requirements("requirements.txt", session=False)]
+try:
+    requirements = [str(ir.req) for ir in parse_requirements("requirements.txt", session=False)]
+except:
+    requirements = [str(ir.requirement) for ir in parse_requirements("requirements.txt", session=False)]
+
 setup(
     name='jaqs_fxdayu',
     version=version(),
