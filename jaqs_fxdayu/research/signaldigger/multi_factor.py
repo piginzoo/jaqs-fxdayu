@@ -241,8 +241,11 @@ def get_factors_ic_df(factors_dict,
         pd.concat([pd.Series(factors_dict[factor_name].index) for factor_name in factors_dict.keys()]).unique())
     for factor_name in factors_dict.keys():
         factor_value = factors_dict[factor_name]
-        if (not isinstance(factor_value, pd.DataFrame)) or (factor_value.size == 0):
-            raise ValueError("因子%s为空或不合法!请确保传入因子有值且数据类型为pandas.DataFrame." % (factor_name,))
+        if not isinstance(factor_value, pd.DataFrame):
+            raise ValueError("因子%s类型应为DataFrame,传入类型:%s" % (factor_name,str(type(factor_value))))
+        if factor_value.size == 0:
+            raise ValueError("因子%s为空：%r" % (factor_name,factor_value))
+
         signal_data = sc.get_signal_data(factor_value)
         if ret_type in signal_data.columns:
             origin_fields = ["signal", ret_type]
